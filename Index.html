@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>My Digital Vault</title>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Digital Vault</h1>
+        
+        <div class="input-group">
+            <input type="text" id="labelInput" placeholder="Label (e.g. Gmail)">
+            <input type="password" id="secretInput" placeholder="Secret Value">
+            <button onclick="saveSecret()">Save to Vault</button>
+        </div>
+
+        <hr>
+
+        <div id="vaultList">
+            <h3>Your Saved Secrets</h3>
+            <div class="secret-item">
+                <span><strong>Gmail:</strong> ••••••••••••</span>
+                <button class="view-btn">View</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
