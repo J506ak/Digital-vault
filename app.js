@@ -78,6 +78,16 @@ function revealSecret(id, encryptedValue) {
     }
 }
 
+async function deleteSecret(id) {
+    if(confirm("Are you sure you want to delete this?")) {
+        const { error } = await _supabase.from('secrets').delete().eq('id', id);
+        if (!error) fetchAndDisplaySecrets(); // Refresh the list
+    }
+}
+
+// And expose it to the window
+window.deleteSecret = deleteSecret;
+
 // EXPOSE TO HTML (Necessary because this is a module)
 window.saveSecret = saveSecret;
 window.revealSecret = revealSecret;
