@@ -54,12 +54,27 @@ async function fetchAndDisplaySecrets() {
 
 // --- REVEAL FUNCTION ---
 function revealSecret(id, encryptedValue) {
-    try {
-        const bytes = CryptoJS.AES.decrypt(encryptedValue, MASTER_KEY);
-        const originalText = bytes.toString(CryptoJS.enc.Utf8);
-        document.getElementById(`val-${id}`).innerText = originalText;
-    } catch (e) {
-        alert("Decryption failed. Check your Master Key.");
+    const target = document.getElementById(`val-${id}`);
+    
+    // 1. Check if the text is currently hidden (showing the bullets)
+    if (target.innerText === "••••••••") {
+        try {
+            // 2. Decrypt it using your Master Key
+            const bytes = CryptoJS.AES.decrypt(encryptedValue, MASTER_KEY);
+            const originalText = bytes.toString(CryptoJS.enc.Utf8);
+            
+            // 3. Show the real text
+            target.innerText = originalText;
+            
+            // Optional: Change the button text to 'Hide'
+            event.target.innerText = "Hide"; 
+        } catch (e) {
+            alert("Decryption failed. Is your Master Key correct?");
+        }
+    } else {
+        // 4. If it was already visible, hide it again
+        target.innerText = "••••••••";
+        event.target.innerText = "View";
     }
 }
 
