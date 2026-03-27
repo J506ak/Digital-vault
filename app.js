@@ -1,7 +1,8 @@
 // 1. Initialize Supabase (Use your own Project URL and API Key)
+const { createClient } = window.supabase;
 const supabaseUrl = 'https://zebumqythveloetdysnq.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InplYnVtcXl0aHZlbG9ldGR5c25xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NjEyNDksImV4cCI6MjA5MDAzNzI0OX0.O8WDEzerIJtbh-_lTw7FeUmvcYmDCE4OUwMYwS0HWLE';
-const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const _supabase = createClient(supabaseUrl, supabaseKey);
 
 // 2. The Master Key (In a real app, this comes from a login password)
 const MASTER_KEY = "user-defined-safe-key";
@@ -95,5 +96,8 @@ const { data, error } = await supabase
       encrypted_secret: encryptSecret("MyBankPassword123") 
     },
   ]);
+
+  window.saveSecret = saveSecret;
+window.revealSecret = revealSecret;
 
   
