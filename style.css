@@ -62,3 +62,29 @@ hr { border: 0; border-top: 1px solid #eee; margin: 30px 0; }
 }
 
 .view-btn:hover { background-color: #059669; }
+
+/* General button styling for the list */
+.action-group {
+    display: flex;
+    gap: 8px;
+}
+
+.view-btn {
+    background-color: #10b981; /* Green */
+    font-size: 12px;
+    padding: 6px 12px;
+}
+
+.view-btn:hover {
+    background-color: #059669;
+}
+
+.delete-btn {
+    background-color: #ef4444; /* Red */
+    font-size: 12px;
+    padding: 6px 12px;
+}
+
+.delete-btn:hover {
+    background-color: #dc2626;
+}

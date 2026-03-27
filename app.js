@@ -44,10 +44,14 @@ async function fetchAndDisplaySecrets() {
     secrets.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'secret-item';
-        itemDiv.innerHTML = `
-            <span><strong>${item.label}:</strong> <span id="val-${item.id}">••••••••</span></span>
-            <button class="view-btn" onclick="revealSecret('${item.id}', '${item.encrypted_secret}')">View</button>
-        `;
+        // Inside your secrets.forEach loop in app.js
+itemDiv.innerHTML = `
+    <span><strong>${item.label}:</strong> <span id="val-${item.id}">••••••••</span></span>
+    <div class="action-group">
+        <button class="view-btn" onclick="revealSecret('${item.id}', '${item.encrypted_secret}', event)">View</button>
+        <button class="delete-btn" onclick="deleteSecret('${item.id}')">Delete</button>
+    </div>
+`;
         listContainer.appendChild(itemDiv);
     });
 }
@@ -78,14 +82,24 @@ function revealSecret(id, encryptedValue) {
     }
 }
 
+// --- DELETE FUNCTION ---
 async function deleteSecret(id) {
-    if(confirm("Are you sure you want to delete this?")) {
-        const { error } = await _supabase.from('secrets').delete().eq('id', id);
-        if (!error) fetchAndDisplaySecrets(); // Refresh the list
+    if (confirm("Are you sure you want to remove this secret forever?")) {
+        const { error } = await _supabase
+            .from('secrets')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error("Delete error:", error);
+        } else {
+            // Refresh the list automatically
+            fetchAndDisplaySecrets();
+        }
     }
 }
 
-// And expose it to the window
+// Add this to your window exposure list at the bottom
 window.deleteSecret = deleteSecret;
 
 // EXPOSE TO HTML (Necessary because this is a module)
